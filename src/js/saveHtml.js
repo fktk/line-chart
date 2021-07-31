@@ -1,0 +1,65 @@
+import { addData } from './handleData';
+import { addOrder, getOrder, changeOrder } from './handleOrder';
+import { getHeaders, concatHeaders, changeHeaders, setHeadersToAxis } from './handleHeaders';
+import { addList, removeAllList } from './sortList';
+import { incrementWordIfOverlapping } from './handleFiles';
+
+export function readHtmlHandler(e) {
+  const file = e.target.files[0];
+  console.log(this)
+  readHtmlAndUpdataData(file, this.chart);
+  document.getElementById('read').value = '';
+}
+
+const readHtmlAndUpdataData = (file, chart) => {
+  if (!/(html)$/.test(file.name)) {
+    showToast(`${file.name}はhtmlファイルではありません`)
+    return;
+  }
+  const reader = new FileReader();
+  reader.readAsText(file);
+  reader.onload = () => {
+    const text = reader.result;
+    const {data, order, headerSet} = extractDataFromHtmlText(text);
+    concatHeaders(getHeaders(), headerSet);
+
+    order.forEach((fileName) => {
+      const newFileName = incrementWordIfOverlapping(fileName, getOrder());
+      addData({[newFileName]: data[fileName]});
+      addOrder(newFileName);
+      addList(newFileName);
+      chart.addTrace(newFileName);
+    });
+  };
+};
+
+const extractDataFromHtmlText = text => {
+  const docEl = new DOMParser().parseFromString(text, 'text/html');
+  const data = JSON.parse(docEl.getElementById('chart-data').textContent);
+  const order = JSON.parse(docEl.getElementById('chart-order').textContent);
+  const headerSet = JSON.parse(docEl.getElementById('chart-headers').textContent);
+  return {data, order, headerSet}
+}
+
+export function resetDataHandler() {
+  document.getElementById('chart-data').textContent = JSON.stringify({});
+  changeOrder([]);
+  changeHeaders(['No.']);
+  removeAllList();
+
+  this.chart.xMin.value='';
+  this.chart.xMax.value='';
+  this.chart.yMin.value='';
+  this.chart.yMax.value='';
+  
+  setHeadersToAxis();
+  this.chart.xAxis.value='No.';
+  this.chart.yAxis.value='No.';
+
+  document.getElementById('text-area').value = '';
+  document.getElementById('text-area').innerText = '';
+  
+  this.chart.updateChart();
+
+};
+

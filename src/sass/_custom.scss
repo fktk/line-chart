@@ -1,0 +1,64 @@
+
+// @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
+
+@import '~bootstrap/scss/root';
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import '~bootstrap/scss/containers';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/nav';
+@import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/close';
+@import '~bootstrap/scss/toasts';
+
+@import '~bootstrap/scss/helpers';
+@import '~bootstrap/scss/utilities/api';
+
+.my-font-sm {
+  font-size: 0.7rem;
+}
+.my-main-height {
+  height: 60vh !important;
+}
+.my-tab-height {
+  height: 5vh !important;
+}
+.my-panel-height {
+  height: 55vh !important;
+}
+
+.legendtoggle {
+    cursor: default !important;
+}
+
+#legend-position {
+    width: 80px;
+}
+
+.sort-item {
+    cursor: move;
+}
+
+.ghost {
+    opacity: .5;
+    background: #C8EBF8;
+}
+
+#chart {
+    max-width: 500px;
+}
+
+.config {
+    min-width: 140px;
+    max-width: 200px;
+}
+
+.memo-wrap {
+    max-width: 700px;
+}
