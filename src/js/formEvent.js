@@ -45,3 +45,20 @@ export function changeLegendDirectionHandler() {
       break;
   }
 }
+
+export function toggleAllCheckedHandler() {
+  if (document.getElementById('all-checked').checked) {
+    const sortListContainer = document.getElementById('sort-list');
+    Array.from(sortListContainer.childNodes).forEach(liEl => {
+      liEl.getElementsByTagName('input')[0].checked = true;
+    });
+    this.chart.updateChart();
+  } else {
+    const sortListContainer = document.getElementById('sort-list');
+    Array.from(sortListContainer.childNodes).forEach(liEl => {
+      liEl.getElementsByTagName('input')[0].checked = false;
+    });
+    this.chart.updateChart();
+  }
+
+}

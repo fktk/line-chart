@@ -18,6 +18,7 @@ import {
   inputYMaxHandler,
   changeLegendHandler,
   changeLegendDirectionHandler,
+  toggleAllCheckedHandler,
 } from './formEvent';
 
 const spinner = document.getElementById('loading');
@@ -99,6 +100,10 @@ window.onload = () => {
 
   document.getElementById('select-files').addEventListener('change',
     {chart: chart, handleEvent: fileChangeHandler}, false
+  );
+
+  document.getElementById('all-checked').addEventListener('change',
+    {chart: chart, handleEvent: toggleAllCheckedHandler}, false
   );
 
 }

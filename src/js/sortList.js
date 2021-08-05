@@ -49,6 +49,7 @@ const dragEnd = e => {
 const makeItemElement = (fileName) => {
   const li = document.createElement('li');
   li.className = 'sort-item list-group-item p-1 d-flex align-items-center';
+  li.style = 'cursor: move;'
 
   const checkColor = document.createElement('div');
   checkColor.className = 'd-flex align-items-center'
@@ -74,7 +75,7 @@ const makeItemElement = (fileName) => {
 
   const nameInput = document.createElement('input');
   nameInput.className = 'form-control form-control-sm d-none';
-  nameInput.style = 'height: 1rem; padding: 2px; width: 4rem;';
+  nameInput.style = 'height: 1rem; padding: 2px; width: 100%;';
   nameInput.value = fileName;
 
   nameInput.addEventListener('change', () => {

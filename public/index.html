@@ -43,104 +43,116 @@
       <div class="loader"></div>
     </div>
 
-    <div class="container-fluid p-3">
+    <div class="position-relative" style="z-index: 3000;">
+      <div id="toast-container" class="toast-container position-absolute w-50"></div>
+    </div>
 
-      <div class="position-relative" style="z-index: 3000;">
-        <div id="toast-container" class="toast-container position-absolute w-50"></div>
-      </div>
+    <div class="whole-container">
 
-      <main class="row gx-1 my-main-height">
-        <div class="config col-3">
+      <div id="chart" class="chart-area2"></div>
 
-          <nav class="nav nav-tabs nav-justified my-tab-height">
-            <a class="nav-link active text-truncate my-font-sm" data-bs-toggle="tab" href="#item1">ファイル</a>
-            <a class="nav-link text-truncate my-font-sm" data-bs-toggle="tab" href="#item2">設定</a>
-          </nav>
+      <div class="config-area">
 
-          <div class="tab-content my-panel-height overflow-scroll">
+        <nav class="nav nav-tabs nav-justified">
+          <a class="nav-link active text-truncate" data-bs-toggle="tab" href="#item1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+              <path d="M.54 3.87L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+            </svg>
+          </a>
+          <a class="nav-link text-truncate" data-bs-toggle="tab" href="#item2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+          </a>
+        </nav>
 
-            <div class="tab-pane mt-2 px-1 active" id="item1">
+        <div class="tab-content overflow-scroll">
 
-              <div class="mt-2">
-                <label for="select-files">
-                  <span class="btn btn-outline-primary btn-sm">
-                    ファイル選択
-                  </span>
-                </label>
-                <input id="select-files" type="file" name='files[]' style="display:none;" multiple accept=".CSV">
+          <div class="tab-pane mt-2 px-1 active" id="item1">
+
+            <div class="mt-2">
+              <label for="select-files">
+                <span class="btn btn-outline-primary btn-sm">
+                  ファイル選択
+                </span>
+              </label>
+              <input id="select-files" type="file" name='files[]' style="display:none;" multiple accept=".CSV">
+            </div>
+            <div class="d-flex">
+              <input class="form-check-input mx-1" type="checkbox" id='all-checked' checked>
+              <label for="all-checked" class="form-check-label text-truncate">All</label>
+            </div>
+            <ul class="list-group" id="sort-list"></ul>
+          </div>
+
+          <div class="tab-pane mt-2 px-1" id="item2">
+
+            <label class="form-label mb-0" for="mode">type</label>
+            <select id="mode" class="form-select form-select-sm mt-0">
+              <option value="lines">Line</option>
+              <option value="markers">Scatter</option>
+              <option value="lines+markers">Line+Marker</option>
+            </select>
+
+            <div class="mt-2 d-flex justify-content-between">
+              <div class="form-check form-switch pt-2">
+                <input class="form-check-input" type="checkbox" id='legend' checked>
+                <label for="legend" class="form-check-label text-truncate">凡例</label>
               </div>
-              <ul class="mt-2 list-group" id="sort-list"></ul>
+              <select id="legend-direction" class="form-select form-select-sm ms-2">
+                <option value="vertical">垂直</option>
+                <option value="horizontal">水平</option>
+              </select>
             </div>
 
-            <div class="tab-pane mt-2 px-1" id="item2">
-
-              <label class="form-label mb-0" for="mode">type</label>
-              <select id="mode" class="form-select form-select-sm mt-0">
-                <option value="lines">Line</option>
-                <option value="markers">Scatter</option>
-                <option value="lines+markers">Line+Marker</option>
-              </select>
-
-              <div class="mt-2 d-flex justify-content-between">
-                <div class="form-check form-switch pt-2">
-                  <input class="form-check-input" type="checkbox" id='legend' checked>
-                  <label for="legend" class="form-check-label text-truncate">凡例</label>
-                </div>
-                <select id="legend-direction" class="form-select form-select-sm ms-2">
-                  <option value="vertical">垂直</option>
-                  <option value="horizontal">水平</option>
-                </select>
+            <label for="x-axis" class="form-label mt-1 mb-0">x軸</label>
+            <select id="x-axis" name="" class="form-select form-select-sm mt-0"></select>
+            <div class="row gx-1">
+              <div class="col">
+                <label class="form-label mb-0" for="x-axis-min">min</label>
+                <input id="x-axis-min" class="form-control form-control-sm" type="number">
               </div>
-
-              <label for="x-axis" class="form-label mt-1 mb-0">x軸</label>
-              <select id="x-axis" name="" class="form-select form-select-sm mt-0"></select>
-              <div class="row gx-1">
-                <div class="col">
-                  <label class="form-label mb-0" for="x-axis-min">min</label>
-                  <input id="x-axis-min" class="form-control form-control-sm" type="number">
-                </div>
-                <div class="col">
-                  <label class="form-label mb-0" for="x-axis-max">max</label>
-                  <input id="x-axis-max" class="form-control form-control-sm" type="number">
-                </div>
+              <div class="col">
+                <label class="form-label mb-0" for="x-axis-max">max</label>
+                <input id="x-axis-max" class="form-control form-control-sm" type="number">
               </div>
+            </div>
 
-              <label for="y-axis" class="form-label mt-2 mb-0">y軸</label>
-              <select id="y-axis" name="" class="form-select form-select-sm mt-0"></select>
-              <div class="row gx-1">
-                <div class="col">
-                  <label class="form-label mb-0" for="y-axis-min">min</label>
-                  <input id="y-axis-min" class="form-control form-control-sm" type="number">
-                </div>
-                <div class="col">
-                  <label class="form-label mb-0" for="y-axis-max">max</label>
-                  <input id="y-axis-max" class="form-control form-control-sm" type="number">
-                </div>
+            <label for="y-axis" class="form-label mt-2 mb-0">y軸</label>
+            <select id="y-axis" name="" class="form-select form-select-sm mt-0"></select>
+            <div class="row gx-1">
+              <div class="col">
+                <label class="form-label mb-0" for="y-axis-min">min</label>
+                <input id="y-axis-min" class="form-control form-control-sm" type="number">
               </div>
-
+              <div class="col">
+                <label class="form-label mb-0" for="y-axis-max">max</label>
+                <input id="y-axis-max" class="form-control form-control-sm" type="number">
+              </div>
             </div>
 
           </div>
+
         </div>
-
-        <div id="chart" class="col my-main-height mt-2"></div>
-
-      </main>
-      <div class="memo-wrap">
-        <label for="text-area">memo</label>
-        <textarea id="text-area" class="form-control" style="height: 15vh"></textarea>
       </div>
-      <div class="mt-2">
-        <a id="save" class="btn btn-outline-primary btn-sm" download="chart.html">チャートを保存</a>
-        <div class="d-inline">
-          <label for="read">
-            <span class="btn btn-outline-primary btn-sm">
-              チャートを読み込む
-            </span>
-          </label>
-          <input id="read" type="file" style="display:none;" accept=".HTML">
+
+      <div class="memo-area">
+        <div class="memo-wrap">
+          <label for="text-area">memo</label>
+          <textarea id="text-area" class="form-control" style="height: 15vh"></textarea>
         </div>
-        <a id="reset" class="btn btn-outline-primary btn-sm">初期化</a>
+        <div class="mt-2">
+          <a id="save" class="btn btn-outline-primary btn-sm" download="chart.html">チャートを保存</a>
+          <div class="d-inline">
+            <label for="read">
+              <span class="btn btn-outline-primary btn-sm">
+                チャートを読み込む
+              </span>
+            </label>
+            <input id="read" type="file" style="display:none;" accept=".HTML">
+          </div>
+          <a id="reset" class="btn btn-outline-primary btn-sm">初期化</a>
+        </div>
       </div>
     </div>
     <script src='bundle.js'></script>

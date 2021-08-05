@@ -6,7 +6,6 @@ import { incrementWordIfOverlapping } from './handleFiles';
 
 export function readHtmlHandler(e) {
   const file = e.target.files[0];
-  console.log(this)
   readHtmlAndUpdataData(file, this.chart);
   document.getElementById('read').value = '';
 }
@@ -19,6 +18,8 @@ const readHtmlAndUpdataData = (file, chart) => {
   const reader = new FileReader();
   reader.readAsText(file);
   reader.onload = () => {
+    const xAxisValue = document.getElementById('x-axis').value;
+    const yAxisValue = document.getElementById('y-axis').value;
     const text = reader.result;
     const {data, order, headerSet} = extractDataFromHtmlText(text);
     concatHeaders(getHeaders(), headerSet);
@@ -28,6 +29,7 @@ const readHtmlAndUpdataData = (file, chart) => {
       addData({[newFileName]: data[fileName]});
       addOrder(newFileName);
       addList(newFileName);
+      setHeadersToAxis(xAxisValue, yAxisValue);
       chart.addTrace(newFileName);
     });
   };
