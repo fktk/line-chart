@@ -1,4 +1,5 @@
 //sortListのリファクタリング
+//save時の状態の保存
 import 'bootstrap/js/dist/toast';
 import 'bootstrap/js/dist/tab';
 import 'bootstrap/js/dist/button';
@@ -36,7 +37,10 @@ window.onload = () => {
     listUl.parentNode.replaceChild(cloneList, listUl);
   }
 
-  setHeadersToAxis();
+  setHeadersToAxis(
+    document.getElementById('x-axis').value,
+    document.getElementById('y-axis').value
+  );
   initList();
   const chart = new MyChart();
 
@@ -81,9 +85,16 @@ window.onload = () => {
     {chart: chart, handleEvent: readHtmlHandler}, false
   );
   document.getElementById('save').addEventListener('click', (e) => {
-    const docOuterHtml = document.documentElement.outerHTML;
-    const replaced = docOuterHtml.replace(/loader-wrapper loaded/, 'loader-wrapper');
-    e.currentTarget.href = URL.createObjectURL(new Blob([replaced]));
+    const type = document.getElementById('mode');
+    type.options[type.selectedIndex].setAttribute('selected', 'selected');
+    const xAxis= document.getElementById('x-axis');
+    xAxis.options[xAxis.selectedIndex].setAttribute('selected', 'selected');
+    const yAxis= document.getElementById('y-axis');
+    yAxis.options[yAxis.selectedIndex].setAttribute('selected', 'selected');
+
+    let docOuterHtml = document.documentElement.outerHTML;
+    docOuterHtml = docOuterHtml.replace(/loader-wrapper loaded/, 'loader-wrapper');
+    e.currentTarget.href = URL.createObjectURL(new Blob([docOuterHtml]));
   }, false); 
 
   document.getElementById('reset').addEventListener('click',
